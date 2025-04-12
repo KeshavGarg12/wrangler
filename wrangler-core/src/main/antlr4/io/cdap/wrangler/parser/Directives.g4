@@ -138,11 +138,13 @@ numberRanges
 numberRange
  : Number ':' Number '=' value
  ;
-
 value
- : String | Number | Column | Bool
+ : String | Number | Column | Bool | BYTE_SIZE | TIME_DURATION  
  ;
 
+
+fragment BYTE_UNIT: [KkMmGgTt][Bb];
+fragment TIME_UNIT: 'ms' | 's' | 'm' | 'h';
 ecommand
  : '!' Identifier
  ;
@@ -246,7 +248,15 @@ Pipe     : '|';
 BackSlash: '\\';
 Dollar   : '$';
 Tilde    : '~';
+byteSize
+  : BYTE_SIZE;
 
+timeDuration: TIME_DURATION;
+BYTE_SIZE: DIGIT+ ('.' DIGIT+)? BYTE_UNIT;
+TIME_DURATION: DIGIT+ ('.' DIGIT+)? TIME_UNIT;
+
+fragment BYTE_UNIT: [KkMmGgTt][Bb];
+fragment TIME_UNIT: 'ms' | 's' | 'm' | 'h';
 
 Bool
  : 'true'
